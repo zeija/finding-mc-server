@@ -1,0 +1,118 @@
+@echo off
+title Advanced Minecraft Scanner v2.0 - by v1rox
+color 0a
+cls
+
+:: Check for Node.js installation
+echo 🔍 Checking system requirements...
+node --version >nul 2>&1
+if %errorlevel% neq 0 (
+    color 0c
+    echo ❌ ERROR: Node.js is not installed or not in PATH
+    echo.
+    echo 📥 Please install Node.js 18+ from: https://nodejs.org
+    echo 💡 Make sure to check "Add to PATH" during installation
+    echo.
+    pause
+    exit /b 1
+)
+
+:: Display Node.js version
+echo ✅ Node.js version: 
+node --version
+
+:: Check if npm packages are installed
+echo 🔍 Checking dependencies...
+if not exist "node_modules\" (
+    echo 📦 Installing dependencies...
+    npm install
+    if %errorlevel% neq 0 (
+        color 0c
+        echo ❌ Failed to install dependencies
+        pause
+        exit /b 1
+    )
+    echo ✅ Dependencies installed successfully
+)
+
+:: Create logs directory if it doesn't exist
+if not exist "%USERPROFILE%\.minecraft-scanner\logs\" (
+    mkdir "%USERPROFILE%\.minecraft-scanner\logs\" 2>nul
+)
+
+:: Display banner
+echo.
+echo ╔══════════════════════════════════════════════════════════════════════╗
+echo ║                                                                      ║
+echo ║  🎮 Advanced Minecraft Server Scanner v2.0                          ║
+echo ║                                                                      ║
+echo ║  🚀 Starting enhanced scanning with auto-restart...                 ║
+echo ║  💡 Created by v1rox ^(Discord: v1rox^)                               ║
+echo ║                                                                      ║
+echo ║  ⌨️  Controls:                                                        ║
+echo ║  • Press [P] to pause/resume                                        ║
+echo ║  • Press [S] to save progress                                        ║
+echo ║  • Press [R] to reset statistics                                     ║
+echo ║  • Press [Q] or Ctrl+C to quit                                       ║
+echo ║                                                                      ║
+echo ╚══════════════════════════════════════════════════════════════════════╝
+echo.
+
+:: Set performance flags for better performance
+set NODE_OPTIONS=--max-old-space-size=4096 --gc-interval=100
+
+:: Main restart loop
+:restart
+echo 🚀 [%date% %time%] Starting Minecraft Scanner...
+echo.
+
+:: Run the scanner with enhanced error handling
+node scanmc.js
+set SCANNER_EXIT_CODE=%errorlevel%
+
+:: Handle different exit codes
+if %SCANNER_EXIT_CODE% equ 0 (
+    echo.
+    echo ✅ Scanner stopped gracefully
+    echo 💾 All data has been saved
+    goto :end
+)
+
+if %SCANNER_EXIT_CODE% equ 1 (
+    color 0e
+    echo.
+    echo ⚠️  Scanner encountered an error, restarting in 5 seconds...
+    echo 🔄 This helps maintain continuous operation
+    timeout /t 5 /nobreak >nul
+    color 0a
+    goto restart
+)
+
+if %SCANNER_EXIT_CODE% equ 2 (
+    color 0c
+    echo.
+    echo ❌ Critical error detected - manual intervention required
+    echo 📝 Check the logs in: %USERPROFILE%\.minecraft-scanner\logs\
+    pause
+    goto :end
+)
+
+:: Unknown exit code
+color 0e
+echo.
+echo ⚠️  Unexpected exit code: %SCANNER_EXIT_CODE%
+echo 🔄 Attempting restart in 3 seconds...
+timeout /t 3 /nobreak >nul
+color 0a
+goto restart
+
+:end
+echo.
+echo 👋 Thanks for using Advanced Minecraft Scanner!
+echo 📊 Check your results in: discovered-servers.txt
+echo 📁 Detailed logs: %USERPROFILE%\.minecraft-scanner\
+echo.
+echo 🌟 If you found this useful, please star the repo!
+echo 🔗 GitHub: https://github.com/zeija/Finding-MC-Server
+echo.
+pause

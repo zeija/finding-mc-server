@@ -1,0 +1,89 @@
+{
+  "name": "advanced-minecraft-scanner",
+  "version": "2.0.0",
+  "description": "🎮 Advanced Minecraft Server Scanner - Discover servers across the globe with enhanced features and real-time analytics",
+  "main": "scanmc.js",
+  "bin": {
+    "minecraft-scanner": "./scanmc.js"
+  },
+  "scripts": {
+    "start": "node scanmc.js",
+    "dev": "node --inspect scanmc.js",
+    "test": "node test/scanner.test.js",
+    "lint": "eslint *.js",
+    "performance": "node --max-old-space-size=4096 scanmc.js --performance",
+    "install-global": "npm install -g .",
+    "clean": "node -e \"require('fs').rmSync(require('os').homedir() + '/.minecraft-scanner', {recursive: true, force: true})\"",
+    "backup": "node scripts/backup-data.js",
+    "export": "node scripts/export-results.js"
+  },
+  "keywords": [
+    "minecraft",
+    "server",
+    "scanner",
+    "discovery",
+    "networking",
+    "gaming",
+    "multiplayer",
+    "analysis",
+    "geolocation",
+    "monitoring"
+  ],
+  "author": {
+    "name": "v1rox",
+    "discord": "v1rox",
+    "url": "https://github.com/zeija"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zeija/Finding-MC-Server.git"
+  },
+  "bugs": {
+    "url": "https://github.com/zeija/Finding-MC-Server/issues"
+  },
+  "homepage": "https://github.com/zeija/Finding-MC-Server#readme",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=8.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.57.0",
+    "nodemon": "^3.0.3"
+  },
+  "optionalDependencies": {
+    "bufferutil": "^4.0.8",
+    "utf-8-validate": "^6.0.3"
+  },
+  "os": [
+    "win32",
+    "darwin",
+    "linux"
+  ],
+  "cpu": [
+    "x64",
+    "arm64"
+  ],
+  "funding": {
+    "type": "github",
+    "url": "https://github.com/sponsors/zeija"
+  },
+  "config": {
+    "defaultPort": 25565,
+    "maxMemory": "2GB",
+    "logLevel": "info"
+  },
+  "files": [
+    "scanmc.js",
+    "start_scanmc.bat",
+    "start_scanmc.sh",
+    "scripts/",
+    "docs/",
+    "README.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ]
+}

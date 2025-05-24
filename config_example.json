@@ -1,0 +1,92 @@
+{
+  "// Configuration for Advanced Minecraft Scanner v2.0": "",
+  "// Copy this file to ~/.minecraft-scanner/config.json and customize": "",
+  
+  "// === BASIC SETTINGS ===": "",
+  "port": 25565,
+  "timeout": 2500,
+  "maxRetries": 2,
+  
+  "// === PERFORMANCE SETTINGS ===": "",
+  "batchSize": 2000,
+  "maxConcurrent": 3000,
+  "maxScans": null,
+  "workerCount": null,
+  
+  "// === SCANNING MODES ===": "",
+  "// Options: 'smart-random', 'random', 'range', 'targeted'": "",
+  "scanMode": "smart-random",
+  
+  "// === IP RANGE CONFIGURATION ===": "",
+  "ipRanges": [
+    "1.0.0.0/8",
+    "8.0.0.0/8",
+    "9.0.0.0/8",
+    "11.0.0.0/8"
+  ],
+  
+  "excludeRanges": [
+    "10.0.0.0/8",
+    "172.16.0.0/12", 
+    "192.168.0.0/16",
+    "127.0.0.0/8"
+  ],
+  
+  "// === OUTPUT SETTINGS ===": "",
+  "outputFile": "discovered-servers.txt",
+  "exportFormats": ["txt", "json"],
+  "logLevel": "info",
+  
+  "// === FILTER SETTINGS ===": "",
+  "versionFilter": null,
+  "minPlayers": 0,
+  "maxPlayers": 1000,
+  "countryFilter": null,
+  
+  "// === ADVANCED FEATURES ===": "",
+  "enableGeolocation": true,
+  "enableVersionAnalysis": true,
+  "enablePerformanceMode": true,
+  
+  "// === TIMING INTERVALS (milliseconds) ===": "",
+  "saveInterval": 30000,
+  "statsInterval": 1000,
+  "gcInterval": 300000,
+  
+  "// === EXAMPLES FOR DIFFERENT USE CASES ===": "",
+  "examples": {
+    "// High performance scanning": {
+      "batchSize": 5000,
+      "maxConcurrent": 5000,
+      "timeout": 1500,
+      "enablePerformanceMode": true,
+      "logLevel": "warn"
+    },
+    
+    "// Conservative scanning (low resource usage)": {
+      "batchSize": 500,
+      "maxConcurrent": 1000,
+      "timeout": 5000,
+      "enablePerformanceMode": false,
+      "saveInterval": 60000
+    },
+    
+    "// Version-specific scanning": {
+      "versionFilter": ["1.20", "1.19"],
+      "minPlayers": 5,
+      "scanMode": "targeted"
+    },
+    
+    "// Geographic filtering": {
+      "countryFilter": ["United States", "Germany", "United Kingdom"],
+      "enableGeolocation": true
+    },
+    
+    "// Testing/Development": {
+      "maxScans": 10000,
+      "logLevel": "debug",
+      "batchSize": 100,
+      "saveInterval": 10000
+    }
+  }
+}
